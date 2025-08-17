@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duplicate Array</title>
+</head>
+<body>
+    <h1>Duplicate Array</h1>
+    <input type="text" id="arr"/>
+    <button onclick="find()">Duplicate Array</button>
+    <p id="output"></p>
+    <script>
+
+       function findDuplicate(nums){
+        let slow = nums[0];
+        let fast = nums[0];
+
+        //To detect cycle
+        do{
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }while(slow !== fast)
+        
+        //find entry point
+        fast = nums[0]
+        while(slow !== fast){
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        
+        return slow;
+       }
+
+       function find(){
+        let input = document.getElementById("arr").value.split(",")
+        let nums = input.map(Number);
+        let duplicate = findDuplicate(nums);
+        document.getElementById("output").innerText = "Duplicate Number is :" + duplicate;
+        // console.log(input)
+       }
+    </script>
+</body>
+</html>
+
+
