@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Merge Arrays</title>
+</head>
+<body>
+  <h2>Merge Two Sorted Arrays</h2>
+
+  <label>First Sorted Array:</label>
+  <input type="text" id="arr1"><br><br>
+
+  <label>Second Sorted Array:</label>
+  <input type="text" id="arr2"><br><br>
+
+  <button onclick="mergeArrays()">Merge</button>
+
+  <h3>Result:</h3>
+  <p id="output1"></p>
+  <p id="output2"></p>
+
+  <script>
+    function nextGap(gap) {
+      if (gap <= 1) return 0;
+      return Math.ceil(gap / 2);
+    }
+
+    function merge(arr1, arr2) {
+      let m = arr1.length;
+      let n = arr2.length;
+      let gap = nextGap(m + n);
+
+      while (gap > 0) {
+        let i = 0;
+        let j = gap;
+        while (j < m + n) {
+          let a = (i < m) ? arr1[i] : arr2[i - m];
+          let b = (j < m) ? arr1[j] : arr2[j - m];
+
+          if (a > b) {
+            if (i < m && j < m) {
+              [arr1[i], arr1[j]] = [arr1[j], arr1[i]];
+            } else if (i < m && j >= m) {
+              [arr1[i], arr2[j - m]] = [arr2[j - m], arr1[i]];
+            } else {
+              [arr2[i - m], arr2[j - m]] = [arr2[j - m], arr2[i - m]];
+            }
+          }
+          i++;
+          j++;
+        }
+        gap = nextGap(gap);
+      }
+    }
+
+    function mergeArrays() {
+      let arr1 = document.getElementById("arr1").value.split(",").map(Number);
+      let arr2 = document.getElementById("arr2").value.split(",").map(Number);
+
+      merge(arr1, arr2);
+
+      document.getElementById("output1").innerText = "Array 1: " + arr1.join(", ");
+      document.getElementById("output2").innerText = "Array 2: " + arr2.join(", ");
+    }
+  </script>
+</body>
+</html>
