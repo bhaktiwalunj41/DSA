@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leader Array</title>
+</head>
+<body>
+    <h1>Find Leader Array</h1>
+     <p><b>Array:</b> [16, 17, 4, 3, 5, 2]</p>
+    <button onclick="findLeader()">Find Leader</button>
+    <p id="output"></p>
+    
+
+    <script>
+
+        function findLeader(){
+            let arr=[16,17,4,5,3,9];
+            let n = arr.length;
+            let leader = []
+
+            let leader_max = arr[n-2];
+            leader.push(leader_max);
+
+            for(let i= n-2; i>=0; i--){
+                if(arr[i] > leader_max){
+                    leader_max = arr[i];
+                    leader.push(arr[i]);
+                }
+            }
+
+            leader.reverse();
+
+            document.getElementById("output").innerHTML="<b>Leader Array </b>" + leader.join(",")
+        }
+
+    </script>
+</body>
+</html>
